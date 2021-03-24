@@ -21,11 +21,20 @@
   // ******** START CODING ON THE NEXT LINE ********
 
 // Cuerpo
-var body = new THREE.SphereGeometry(50);
+var body = new THREE.SphereGeometry(100);
 var cover = new THREE.MeshNormalMaterial(flat);
 var avatar = new THREE.Mesh(body, cover);
     
 scene.add(avatar);
+ 
+//Mano
+var hand = new THREE.SphereGeometry(50);
+    
+    
+//Mano derecha
+var righthand = new THREE.Mesh (hand, cover);
+righthand.position.set(-150,0,0);
+scene.add(righthand);
 
 
   // Now, show what the camera sees on the screen:
