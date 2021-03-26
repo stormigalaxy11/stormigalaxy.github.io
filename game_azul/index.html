@@ -57,5 +57,18 @@ leftfoot.position.set(75,-125,0);
 scene.add(leftfoot);
 
   // Now, show what the camera sees on the screen:
-  renderer.render(scene, camera);
+      
+    fuction animate() {
+        requestAnimationFrame(animate);
+        
+        //ANIMACION
+        avatar.rotation.z = avatar.rotation.z + 0.05;
+        
+        renderer.render(scene, camera);
+    }
+    
+    animate();
+    
+    
+    
 </script>
