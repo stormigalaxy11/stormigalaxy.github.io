@@ -34,13 +34,13 @@ var hand = new THREE.SphereGeometry(50);
 //Mano derecha
 var righthand = new THREE.Mesh (hand, cover);
 righthand.position.set(-150,0,0);
-scene.add(righthand);
+avatar.add(righthand);
   
     
 //Mano izquierda
 var lefthand = new THREE.Mesh(hand, cover);
 lefthand.position.set(150,0,0);
-scene.add(lefthand);
+avatar.add(lefthand);
     
     
 //Pie
@@ -49,16 +49,16 @@ var foot = new THREE.SphereGeometry(50);
 //Pie derecho
 var rightfoot = new THREE.Mesh(foot, cover);
 rightfoot.position.set(-75,-125,0);
-scene.add(rightfoot);
+avatar.add(rightfoot);
     
 //Pie izquierdo
 var leftfoot = new THREE.Mesh(foot, cover);
 leftfoot.position.set(75,-125,0);
-scene.add(leftfoot);
+avatar.add(leftfoot);
 
   // Now, show what the camera sees on the screen:
       
-    fuction animate() {
+    function animate() {
         requestAnimationFrame(animate);
         
         //ANIMACION
@@ -68,7 +68,5 @@ scene.add(leftfoot);
     }
     
     animate();
-    
-    
     
 </script>
