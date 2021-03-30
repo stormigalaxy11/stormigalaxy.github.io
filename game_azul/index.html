@@ -56,8 +56,32 @@ var leftfoot = new THREE.Mesh(foot, cover);
 leftfoot.position.set(75,-125,0);
 avatar.add(leftfoot);
 
-  // Now, show what the camera sees on the screen:
+
+    document.addEventListener('keydown', teclaApretada);
+    
+    function teclaApretada(e) {
+     //alert(e.code); 
+        let codigo = e.code;
+        
+        if (codigo == 'KeyA') {
+            avatar.position.z += 5;     
+        }
+        if (codigo == 'KeyQ') {
+            avatar.position.z -= 5;
+        }
+        
       
+        if (codigo == 'KeyO') {
+            avatar.position.x -= 5;
+        }
+    
+     
+        if (codigo == 'KeyP') {
+            avatar.position.x += 5;
+        }
+    }
+    
+    
     function animate() {
         requestAnimationFrame(animate);
         
