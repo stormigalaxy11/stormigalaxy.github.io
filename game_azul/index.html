@@ -56,6 +56,32 @@ var leftfoot = new THREE.Mesh(foot, cover);
 leftfoot.position.set(75,-125,0);
 avatar.add(leftfoot);
 
+let isCartWheeling = false;
+    
+    function crearArbol(x, z) {
+        
+        var tronco = new THREE.CylinderGeometry(50,50,200);
+        var marron = new THREE.MeshBasicMaterial({color: 'sienna'});
+        var tronco_marron = new THREE.Mesh(tronco, marron);
+        
+        var copa = new THREE.SphereGeometry(150);
+        var verde = new THREE.MeshBasicMaterial({color:'forestgreen'});
+        var copa_verde = new THREE.Mesh(copa,verde);
+        
+        copa_verde.position.y = 175;
+        tronco_marron.add(copa_verde);
+        tronco_marron.position.set(x, -75,z);
+        scene.add(tronco_marron);
+    }
+    
+    function crearCampoAleatorio(numArboles) {
+        for(var i =0; i< numArboles;i++) {
+            var x = Math.random()*1000;
+            var z = Math.random()*1000;
+            crearArbol(x,z);
+        }
+    }
+    crearCampoAleatorio(1000)
 
     document.addEventListener('keydown', teclaApretada);
     
@@ -79,6 +105,10 @@ avatar.add(leftfoot);
         if (codigo == 'KeyP') {
             avatar.position.x += 5;
         }
+        
+        if (codigo == 'KeyC') {
+            isCartWheeling = !isCartWheeling;
+        }
     }
     
     
@@ -86,8 +116,9 @@ avatar.add(leftfoot);
         requestAnimationFrame(animate);
         
         //ANIMACION
-        avatar.rotation.z = avatar.rotation.z + 0.05;
-        
+        if (isCartWheeling) {
+            avatar.rotation.z = avatar.rotation.z + 0.05;
+        }
         renderer.render(scene, camera);
     }
     
