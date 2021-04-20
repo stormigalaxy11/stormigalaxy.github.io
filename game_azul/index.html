@@ -10,7 +10,8 @@
   // The "camera" is what sees the stuff:
   var aspectRatio = window.innerWidth / window.innerHeight;
   var camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
-  camera.position.z = 500;
+  camera.position.z = 5000;
+camera.position.y = 5000;
   scene.add(camera);
 
   // The "renderer" draws what the camera sees onto the screen:
@@ -55,6 +56,8 @@ avatar.add(rightfoot);
 var leftfoot = new THREE.Mesh(foot, cover);
 leftfoot.position.set(75,-125,0);
 avatar.add(leftfoot);
+    
+camera.lookAt(avatar.position);
 
 let isCartWheeling = false;
     
@@ -81,8 +84,24 @@ let isCartWheeling = false;
             crearArbol(x,z);
         }
     }
-    crearCampoAleatorio(1000)
-
+    
+    function crearFilaArbol(z,minimo_x, maximo_x, paso_x) {
+        for (var x=minimo_x; x<maximo_x; x=x+paso_x) {
+            crearArbol(x, z);
+        }
+    }
+    
+    function crearCampoArboles(minimo_x, minimo_z, maximo_x, maximo_z, paso) {
+        for(var z=minimo_z; z<maximo_z; z=z+paso) {
+           crearFilaArbol(z, minimo_x, maximo_x, paso); 
+        }
+    }
+    
+    //crearFilaArbol(0,-5000,5000,500)
+    
+    //crearCampoAleatorio(1000, 5000, 10000);
+    crearCampoArboles(-5000,-5000,5000,5000,1000)
+    
     document.addEventListener('keydown', teclaApretada);
     
     function teclaApretada(e) {
@@ -106,7 +125,7 @@ let isCartWheeling = false;
             avatar.position.x += 5;
         }
         
-        if (codigo == 'KeyC') {
+        if (codigo == 'KeyI') {
             isCartWheeling = !isCartWheeling;
         }
     }
