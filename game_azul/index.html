@@ -21,6 +21,15 @@ camera.position.y = 0;
   document.body.appendChild(renderer.domElement);
 
   // ******** START CODING ON THE NEXT LINE ********
+    var scoreboard = new Scoreboard();
+    scoreboard.countdown(45);
+    scoreboard.score();
+    scoreboard.help("Usa los las teclas A,W,S,D para moverte. Busca las frutas en los arboles que se mueven, aprieta el espacio para coger las frutas, acercate al arbol y coge las frutas antes de que desaparezcan");
+    scoreboard.onTimeExpired(gameOver);
+    function gameOver () {
+        scoreboard.message("Se acabo el juego!")
+    }
+    
     listaColision = [];
     
 // Cuerpo
