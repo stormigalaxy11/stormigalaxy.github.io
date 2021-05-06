@@ -10,9 +10,9 @@
   // The "camera" is what sees the stuff:
   var aspectRatio = window.innerWidth / window.innerHeight;
   var camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
-  camera.position.z = 5000;
-camera.position.y = 5000;
-  scene.add(camera);
+  camera.position.z = 500;
+camera.position.y = 0;
+  //scene.add(camera);
 
   // The "renderer" draws what the camera sees onto the screen:
   var renderer = new THREE.WebGLRenderer({antialias: true});
@@ -20,14 +20,21 @@ camera.position.y = 5000;
   document.body.appendChild(renderer.domElement);
 
   // ******** START CODING ON THE NEXT LINE ********
-
+    listaColision = [];
+    
 // Cuerpo
 var body = new THREE.SphereGeometry(100);
 var cover = new THREE.MeshNormalMaterial(flat);
 var avatar = new THREE.Mesh(body, cover);
     
-scene.add(avatar);
- 
+    
+    var marcador = new THREE.Object3D();
+    marcador.position.x = 300;
+    scene.add(marcador);
+    //scene.add(avatar);
+    marcador.add(avatar);
+    marcador.add(camera);
+    
 //Mano
 var hand = new THREE.SphereGeometry(50);
     
@@ -74,6 +81,16 @@ let isCartWheeling = false;
         copa_verde.position.y = 175;
         tronco_marron.add(copa_verde);
         tronco_marron.position.set(x, -75,z);
+        
+        var circulo = new THREE.CircleGeometry(300);
+        var invisible = new THREE.MeshNormalMaterial({ transparent: true, opacity: 0.5 });
+        var limite = new THREE.Mesh(circulo, invisible);
+        limite.position.y = -100;
+        limite.rotation.x = -Math.PI/2;
+        tronco_marron.add(limite);
+        
+        listaColision.push(limite);
+        
         scene.add(tronco_marron);
     }
     
@@ -108,27 +125,60 @@ let isCartWheeling = false;
      //alert(e.code); 
         let codigo = e.code;
         
-        if (codigo == 'KeyA') {
-            avatar.position.z += 5;     
+        if (codigo == 'KeyS') {
+            avanzar(marcador.rotation.y+Math.PI);     
         }
-        if (codigo == 'KeyQ') {
-            avatar.position.z -= 5;
+        if (codigo == 'KeyW') {
+            avanzar(marcador.rotation.y);
         }
         
       
-        if (codigo == 'KeyO') {
-            avatar.position.x -= 5;
+        if (codigo == 'KeyA') {
+            marcador.rotation.y -= 5;
         }
     
      
-        if (codigo == 'KeyP') {
-            avatar.position.x += 5;
+        if (codigo == 'KeyD') {
+            marcador.rotation.y += 5;
         }
         
-        if (codigo == 'KeyI') {
+        if (codigo == 'KeyC') {
             isCartWheeling = !isCartWheeling;
         }
     }
+    
+    function avanzar (direccion) {
+        direccion += Math.PI/2;
+        console.log("Radianes:" + direccion);
+        console.log("Grados:" + direccion*180/Math.PI);
+        console.log("Sen(direccion):" + Math.sin(direccion));
+        console.log("Cos(direccion):" + Math.cos(direccion));
+        
+        marcador.position.z -= 20*Math.sin(direccion);
+        marcador.position.x += 20*Math.cos(direccion);
+        
+        if(avatarColisiona()) {
+            marcador.position.z -= -20*Math.sin(direccion);
+            marcador.position.x += -20*Math.cos(direccion)
+            
+        }
+        
+        
+    }
+    
+    function avatarColisiona() {
+        var vector = new THREE.Vector3(0,-1,0);
+        var raycaster = new THREE.Raycaster(marcador.position, vector);
+        
+        var intersectados = raycaster.intersectObjects(listaColision);
+        
+        if (intersectados.length > 0) return true;
+    }    
+    
+    
+    
+    
+    
     
     
     function animate() {
