@@ -1,5 +1,6 @@
 <body></body>
 <script src="/lib/three.js"></script>
+<script src="/lib/Scoreboard.js"></script>
 <script>
   // The "scene" is where stuff in our game will happen:
   var scene = new THREE.Scene();
@@ -133,13 +134,13 @@ let isCartWheeling = false;
         }
         
       
-        if (codigo == 'KeyA') {
-            marcador.rotation.y -= 5;
+        if (codigo == 'KeyD') {
+            marcador.rotation.y -= 0.01;
         }
     
      
-        if (codigo == 'KeyD') {
-            marcador.rotation.y += 5;
+        if (codigo == 'KeyA') {
+            marcador.rotation.y += 0.01;
         }
         
         if (codigo == 'KeyC') {
